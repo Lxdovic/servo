@@ -19,29 +19,30 @@ EnvCreateResult EnvCreateFunc(int index) {
 	std::vector<WeightedReward> rewards = {
 
 		// Movement
-		{ new AirReward(), 0.1f },
+		{ new AirReward(), 0.25f },
 
 		// Player-ball
-		{ new FaceBallReward(), 1.f },
-		{ new VelocityPlayerToBallReward(), 8.f },
-		{ new TouchBallReward(), 0.1f },
-		{ new StrongTouchReward(), 40.f },
+		{ new FaceBallReward(), 0.5f },
+		{ new VelocityPlayerToBallReward(), 4.f },
+		// { new TouchBallReward(), 0.1f },
+		{ new TouchAccelReward(), 10.f },
+		{ new StrongTouchReward(), 10.f },
+		{ new WavedashReward(), 1.f },
 
 		// Ball-goal
-		{ new ZeroSumReward(new VelocityBallToGoalReward(), 1), 4.0f },
+		{ new ZeroSumReward(new VelocityBallToGoalReward(), 2.f), 1.0f },
 
 		// Boost
-		// { new PickupBoostReward(), 10.f },
-		// { new SaveBoostReward(), 0.2f },
+		{ new PickupBoostReward(), 10.f },
+		{ new SaveBoostReward(), 0.25f },
 
 		// Game events
-		// { new ZeroSumReward(new BumpReward(), 0.5f), 20.f },
-		// { new ZeroSumReward(new DemoReward(), 0.5f), 80.f },
-		{ new GoalReward(), 150.f }
+		{ new ZeroSumReward(new BumpReward(), 2.5f), 20.f },
+		{ new ZeroSumReward(new DemoReward(), 4.5f), 40.f },
+		{ new GoalReward(), 400.f }
 	};
 
 	std::vector<TerminalCondition*> terminalConditions = {
-		new NoTouchCondition(30),
 		new GoalScoreCondition()
 	};
 
@@ -56,8 +57,8 @@ EnvCreateResult EnvCreateFunc(int index) {
 	RandomState* randState = new RandomState(true, true, true);
 
 	CombinedState* combined = new CombinedState({
-		{ kickoffStateSetter, 0.6f },
-		{ randState, 0.4f }
+		{ kickoffStateSetter, 0.5f },
+		{ randState, 0.5f }
 	});
 
 	EnvCreateResult result = {};
@@ -110,7 +111,7 @@ int main(int argc, char* argv[]) {
 	cfg.tickSkip = 8;
 	cfg.actionDelay = cfg.tickSkip - 1; // Normal value in other RLGym frameworks
 
-	cfg.numGames = 512;
+	cfg.numGames = 256;
 
 	cfg.randomSeed = 123;
 
