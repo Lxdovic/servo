@@ -4,7 +4,7 @@ project("RLGymCPP")
 
 # Add all headers and code files
 file(GLOB_RECURSE FILES_SRC "src/*.cpp" "src/*.h")
-add_library(RLGymCPP STATIC ${FILES_SRC} "src/RLGymCPP/Rewards/CommonRewards (2).h")
+add_library(RLGymCPP STATIC ${FILES_SRC})
 target_include_directories(RLGymCPP PUBLIC "src/")
 
 # Set C++ version to 20

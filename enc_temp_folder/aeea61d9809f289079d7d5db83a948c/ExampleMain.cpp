@@ -23,24 +23,49 @@ EnvCreateResult EnvCreateFunc(int index) {
 		{ new AirReward(), 0.25f },
 
 		// Player-ball
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+		{ new FaceBallReward(), 1.f },
+		{ new VelocityPlayerToBallReward(), 8.f },
+		{ new TouchBallReward(), 0.1f },
+		{ new StrongTouchReward(), 40.f },
+=======
 		// { new FaceBallReward(), 0.5f },
 		 { new VelocityPlayerToBallReward(), 0.05f },
-		 // { new TouchBallReward(), 0.1f },
-		 { new TouchAccelReward(), 10.f },
-		 { new StrongTouchReward(), 10.f },
-		 { new WavedashReward(), 1.f },
+=======
+		{ new FaceBallReward(), 0.5f },
+		{ new VelocityPlayerToBallReward(), 4.f },
+>>>>>>> 33e64c4e6aa7f36f5a3468261fe4c6c97890fead
+		// { new TouchBallReward(), 0.1f },
+		{ new TouchAccelReward(), 10.f },
+		{ new StrongTouchReward(), 10.f },
+		{ new WavedashReward(), 1.f },
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> 33e64c4e6aa7f36f5a3468261fe4c6c97890fead
 
-		 // Ball-goal
-		 { new ZeroSumReward(new VelocityBallToGoalReward(), 2.f), 1.0f },
+		// Ball-goal
+		{ new ZeroSumReward(new VelocityBallToGoalReward(), 2.f), 1.0f },
 
-		 // Boost
-		 { new PickupBoostReward(), 10.f },
-		 { new SaveBoostReward(), 0.5f },
+		// Boost
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+		// { new PickupBoostReward(), 10.f },
+		// { new SaveBoostReward(), 0.2f },
+=======
+		{ new PickupBoostReward(), 10.f },
+		{ new SaveBoostReward(), 0.5f },
+>>>>>>> Stashed changes
+=======
+		{ new PickupBoostReward(), 10.f },
+		{ new SaveBoostReward(), 0.25f },
+>>>>>>> 33e64c4e6aa7f36f5a3468261fe4c6c97890fead
 
-		 // Game events
-		 { new ZeroSumReward(new BumpReward(), 2.5f), 20.f },
-		 { new ZeroSumReward(new DemoReward(), 4.5f), 40.f },
-		 { new GoalReward(), 400.f }
+		// Game events
+		{ new ZeroSumReward(new BumpReward(), 2.5f), 20.f },
+		{ new ZeroSumReward(new DemoReward(), 4.5f), 40.f },
+		{ new GoalReward(), 400.f }
 	};
 
 	std::vector<TerminalCondition*> terminalConditions = {
