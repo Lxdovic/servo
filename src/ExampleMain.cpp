@@ -11,6 +11,7 @@
 #include <RLGymCPP/ActionParsers/DefaultAction.h>
 #include <RLGymCPP/StateSetters/FuzzedKickoffState.h>
 #include <RLGymCPP/StateSetters/CombinedState.h>
+#include <GigaLearnCPP/SkillTrackerConfig.h>
 
 using namespace GGL;
 using namespace RLGC;
@@ -22,17 +23,31 @@ EnvCreateResult EnvCreateFunc(int index) {
 		{ new AirReward(), 0.1f },
 
 		// Player-ball
+<<<<<<< Updated upstream
 		{ new FaceBallReward(), 1.f },
 		{ new VelocityPlayerToBallReward(), 8.f },
 		{ new TouchBallReward(), 0.1f },
 		{ new StrongTouchReward(), 40.f },
+=======
+		// { new FaceBallReward(), 0.5f },
+		 { new VelocityPlayerToBallReward(), 0.05f },
+		// { new TouchBallReward(), 0.1f },
+		{ new TouchAccelReward(), 10.f },
+		{ new StrongTouchReward(), 10.f },
+		{ new WavedashReward(), 1.f },
+>>>>>>> Stashed changes
 
 		// Ball-goal
 		{ new ZeroSumReward(new VelocityBallToGoalReward(), 1), 4.0f },
 
 		// Boost
+<<<<<<< Updated upstream
 		// { new PickupBoostReward(), 10.f },
 		// { new SaveBoostReward(), 0.2f },
+=======
+		{ new PickupBoostReward(), 10.f },
+		{ new SaveBoostReward(), 0.5f },
+>>>>>>> Stashed changes
 
 		// Game events
 		// { new ZeroSumReward(new BumpReward(), 0.5f), 20.f },
@@ -114,10 +129,10 @@ int main(int argc, char* argv[]) {
 
 	cfg.randomSeed = 123;
 
-	int tsPerItr = 50'000;
+	int tsPerItr = 120'000;
 	cfg.ppo.tsPerItr = tsPerItr;
 	cfg.ppo.batchSize = tsPerItr;
-	cfg.ppo.miniBatchSize = 50'000; // Lower this if too much VRAM is being allocated
+	cfg.ppo.miniBatchSize = 60'000; // Lower this if too much VRAM is being allocated
 
 	// 1, 2 or 3
 	cfg.ppo.epochs = 1;
@@ -128,8 +143,8 @@ int main(int argc, char* argv[]) {
 	// Starting low tends to work out
 	cfg.ppo.gaeGamma = 0.99;
 
-	cfg.ppo.policyLR = 1.5e-4;
-	cfg.ppo.criticLR = 1.5e-4;
+	cfg.ppo.policyLR = 1e-4;
+	cfg.ppo.criticLR = 1e-4;
 
 	cfg.ppo.sharedHead.layerSizes = { 1024, 1024 };
 	cfg.ppo.policy.layerSizes = { 1024, 512, 512 };
@@ -156,6 +171,11 @@ int main(int argc, char* argv[]) {
 
 	cfg.sendMetrics = true;
 	cfg.renderMode = false;
+
+	SkillTrackerConfig skillTracker = {};
+	skillTracker.enabled = true;
+
+	cfg.skillTracker = skillTracker;
 
 	Learner* learner = new Learner(EnvCreateFunc, cfg, StepCallback);
 
